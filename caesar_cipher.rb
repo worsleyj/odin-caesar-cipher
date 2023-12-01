@@ -6,11 +6,7 @@ SHIFT = gets.chomp
 
 
 def upcase?(char)
-    if char == char.upcase && letter?(char)
-        true
-    else
-        false
-    end
+    true if char == char.upcase && letter?(char)
 end
 
 def letter?(char)
