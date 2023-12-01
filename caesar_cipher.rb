@@ -5,7 +5,7 @@
 # SHIFT = gets.chomp
 
 
-STRING = "ABCXYZ"
+STRING = "ABC XYZ"
 SHIFT = 3
 
 def upcase?(char)
@@ -18,13 +18,11 @@ end
 
 def caesar_cipher(string, shift)
     cipher = string.chars
-    cipher.each do |char|
+    cipher.map do |char|
         upper = upcase?(char) # true if uppercase
         shifted = (char.ord+shift) # shifted char value
 
-        if upper == true # when char was uppercase, adjust to lowercase
-            shifted += 32
-        end
+        shifted += 32 if upper == true # when char was uppercase, adjust to lowercase
 
         if shifted > 122 
             shifted -= 26
@@ -32,11 +30,10 @@ def caesar_cipher(string, shift)
             shifted += 26
         end
 
-        if upper == true # adjust back to uppercase
-            shifted -= 32
-        end
-        puts shifted.chr
+        shifted -= 32 if upper == true # adjust back to uppercase
+        shifted = shifted.chr
     end
+    p cipher
 end
 
 caesar_cipher(STRING, SHIFT.to_i)
