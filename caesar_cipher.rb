@@ -1,39 +1,47 @@
-# puts "Enter String\n"
-# STRING = gets.chomp
+puts "Enter String\n"
+STRING = gets.chomp
 
-# puts "Enter Shift Value"
-# SHIFT = gets.chomp
+puts "Enter Shift Value\n"
+SHIFT = gets.chomp
 
-
-STRING = "ABC XYZ"
-SHIFT = 3
 
 def upcase?(char)
-    if char == char.upcase
+    if char == char.upcase && letter?(char)
         true
     else
         false
     end
 end
 
+def letter?(char)
+    (char.ord >= 65 && char.ord <= 122) # true if char is a-z or A-Z
+end
+
 def caesar_cipher(string, shift)
     cipher = string.chars
-    cipher.map do |char|
-        upper = upcase?(char) # true if uppercase
-        shifted = (char.ord+shift) # shifted char value
+    cipher.map! do |char|
+        is_letter = letter?(char)
+        uppercase = upcase?(char) # true if uppercase
 
-        shifted += 32 if upper == true # when char was uppercase, adjust to lowercase
+        if is_letter
+            shifted = (char.ord+shift) # shifted char value
+        else
+            shifted = (char.ord) # don't shift if it's not a letter
+        end
 
-        if shifted > 122 
+        shifted += 32 if uppercase # when char was uppercase, adjust to lowercase
+
+        if shifted > 122 && is_letter
             shifted -= 26
-        elsif shifted < 97
+        elsif shifted < 97 && is_letter
             shifted += 26
         end
 
-        shifted -= 32 if upper == true # adjust back to uppercase
+        shifted -= 32 if uppercase # adjust back to uppercase
         shifted = shifted.chr
     end
-    p cipher
+    puts "Original String: \"" + string + "\""
+    puts "Modified String: \"" + cipher.join + "\" - shifted by " + shift.to_s + " places."
 end
 
 caesar_cipher(STRING, SHIFT.to_i)
