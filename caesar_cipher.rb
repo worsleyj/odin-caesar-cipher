@@ -1,7 +1,6 @@
 def caesar_cipher(string, shift)
-    cipher = ""
-
-    puts cipher
+    cipher = string.chars
+    cipher.each { |char| puts (char.ord+shift).chr}
 end
 
-caesar_cipher("test", 0)
+caesar_cipher("test", 3)
